@@ -1,8 +1,6 @@
 import './TimeList.css'
 import React, { useEffect, useState } from 'react';
 
-import { formatMillis } from '../helperFunctions';
-
 import {
     ListGroup,
     ListGroupItem,

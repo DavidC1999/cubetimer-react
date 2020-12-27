@@ -31,6 +31,10 @@ export default function CustomNavbar() {
         // eslint-disable-next-line react-hooks/exhaustive-deps        
     }, []);
 
+    const newScramble = () => {
+        document.dispatchEvent(new CustomEvent("For:Scramble::generate"));
+    }
+
     return (
         <Navbar color="primary" dark expand="md" className={`${hidden ? "hidden" : ""}`} style={{ transition: "opacity .3s" }}>
             <NavbarBrand>React Cube Timer</NavbarBrand>
@@ -38,12 +42,12 @@ export default function CustomNavbar() {
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="/components/">Components</NavLink>
+                        <NavLink href="#">Settings</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                        <NavLink href="#" onClick={newScramble}>New scramble</NavLink>
                     </NavItem>
-                    <UncontrolledDropdown nav inNavbar>
+                    {/* <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle nav caret>
                             Options
                         </DropdownToggle>
@@ -59,9 +63,8 @@ export default function CustomNavbar() {
                                 Reset
                         </DropdownItem>
                         </DropdownMenu>
-                    </UncontrolledDropdown>
+                    </UncontrolledDropdown> */}
                 </Nav>
-                <NavbarText>Simple Text</NavbarText>
             </Collapse>
         </Navbar>
     );

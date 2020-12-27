@@ -113,22 +113,22 @@ export default class Timer extends React.Component {
 
     initStateIdle() {
         this.stopTimer();
-        this.setState({
-            display: this.state.display,
+        let newState = {
+            ...this.state,
             hint: "Press space to start"
-        });
-
-        if (this.props.settings.get('inspection')) {
-            this.setState({
-                ...this.state,
-                display: millisToSeconds(this.props.settings.get('inspection_time'))
-            });
-        } else {
-            this.setState({
-                ...this.state,
-                display: "00:00.000"
-            });
         }
+        if (this.props.settings.get('inspection')) {
+            newState = {
+                ...newState,
+                display: millisToSeconds(this.props.settings.get('inspection_time'))
+            };
+        } else {
+            newState = {
+                ...newState,
+                display: "00:00.000"
+            };
+        }
+        this.setState(newState);
     }
 
     initStateInspection() {
