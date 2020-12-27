@@ -35,6 +35,12 @@ export default function TimeList({ timeList, setTimeList }) {
         setTimeList(timeListCpy);
     }
 
+    const deleteTime = idx => {
+        let timeListCpy = [...timeList];
+        timeListCpy.splice(idx, 1);
+        setTimeList(timeListCpy);
+    }
+
     return (
         <div className={`timelist px-2 text-center ${hidden ? "hidden" : ""}`}>
             <ListGroup>
@@ -52,6 +58,11 @@ export default function TimeList({ timeList, setTimeList }) {
                                 className={`btn-sm ml-2 ${time.dnf ? "btn-outline-warning" : "btn-outline-primary"}`}
                                 onClick={() => toggleDNF(idx) }
                             >DNF</Button>
+                            <Button
+                                color="muted"
+                                className="btn-sm ml-4 btn-outline-danger"
+                                onClick={() => deleteTime(idx) }
+                            >X</Button>
                         </span>
                     </ListGroupItem>
                 ))}
