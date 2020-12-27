@@ -45,8 +45,8 @@ export default function TimeList({ timeList, setTimeList }) {
         <div className={`timelist px-2 text-center ${hidden ? "hidden" : ""}`}>
             <ListGroup>
                 {timeList.map((time, idx) => (
-                    <ListGroupItem key={idx} className="px-5 time" onClick={() => alert(time.getScramble())}>
-                        <span>{time.getString()}</span>
+                    <ListGroupItem key={idx} className="px-5 time">
+                        <span className="timeText" onClick={() => alert(time.getScramble())}>{time.getString()}</span>
                         <span>
                             <Button
                                 color="muted"

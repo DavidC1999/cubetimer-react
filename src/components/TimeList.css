@@ -2,5 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.timelist .timeText {
   cursor: pointer;
 }
