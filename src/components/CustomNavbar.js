@@ -6,15 +6,12 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    NavbarText
+    NavLink
 } from 'reactstrap';
 
-export default function CustomNavbar() {
+import SettingsModal from './SettingsModal';
+
+export default function CustomNavbar({ settings, setSettings }) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
@@ -42,7 +39,7 @@ export default function CustomNavbar() {
             <Collapse isOpen={isOpen} navbar>
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href="#">Settings</NavLink>
+                        <SettingsModal settings={settings} setSettings={setSettings}/>
                     </NavItem>
                     <NavItem>
                         <NavLink href="#" onClick={newScramble}>New scramble</NavLink>

@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="app">
-      <CustomNavbar />
+      <CustomNavbar settings={settings} setSettings={setSettings} />
 
       <Container className="mt-3">
         <Scramble settings={settings} scramble={scramble} setScramble={setScramble}/>
