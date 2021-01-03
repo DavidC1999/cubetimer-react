@@ -44,7 +44,7 @@ export default class Timer extends React.Component {
             states: {
                 'idle': {
                     next: () => (
-                        this.props.settings.get('inspection') ? 'inspection' : 'solving'
+                        this.props.settings.getValue('inspection') ? 'inspection' : 'solving'
                     ),
                     function: this.initStateIdle
                 },
@@ -81,7 +81,7 @@ export default class Timer extends React.Component {
         this.timerInterval = setInterval(() => {
             this.currTime = Date.now();
 
-            let timeLeft = this.props.settings.get('inspection_time') - (this.currTime - this.startTime);
+            let timeLeft = this.props.settings.getValue('inspection_time') - (this.currTime - this.startTime);
             if (timeLeft <= -1000) {
                 this.isPlusTwo = false;
                 this.isDNF = true;
@@ -117,10 +117,10 @@ export default class Timer extends React.Component {
             ...this.state,
             hint: "Press space to start"
         }
-        if (this.props.settings.get('inspection')) {
+        if (this.props.settings.getValue('inspection')) {
             newState = {
                 ...newState,
-                display: millisToSeconds(this.props.settings.get('inspection_time'))
+                display: millisToSeconds(this.props.settings.getValue('inspection_time'))
             };
         } else {
             newState = {

@@ -9,8 +9,8 @@ export default function Scramble({ settings, scramble, setScramble }) {
 
     const newScramble = () => {
         console.log("Generating scramble");
-        let generator = getGenerator(settings.get("scramble_type"));
-        let scramble = generator.generate(settings.get("scramble_length"));
+        let generator = getGenerator(settings.getValue("scramble_type"));
+        let scramble = generator.generate(settings.getValue("scramble_length"));
         setScramble(scramble);
     };
 

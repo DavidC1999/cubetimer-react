@@ -1,43 +1,92 @@
 
 export default class Settings {
-    constructor() {
-        this.settings = {
-            "inspection": true,
-            "inspection_time": 2000,
-            "scramble_type": '3x3',
-            "scramble_length": 20
-        }
+    constructor(initialSettings) {
+        this.nameToIdx = {};
+        // this.settings = {
+        //     "inspection": true,
+        //     "inspection_time": 2000,
+        //     "scramble_type": '3x3',
+        //     "scramble_length": 20
+        // }
+        if (!initialSettings)
+            this.settings = [
+                {
+                    "name": "inspection",
+                    "pretty name": "Inspection",
+                    "type": "boolean",
+                    "value": true
+                },
+                {
+                    "name": "inspection_time",
+                    "pretty name": "Inspection Time (ms)",
+                    "type": "number",
+                    "value": 2000
+                },
+                {
+                    "name": "scramble_type",
+                    "pretty name": "Scramble Type",
+                    "type": "option",
+                    "value": "3x3",
+                    "options": [
+                        "3x3"
+                    ]
+                },
+                {
+                    "name": "scramble_length",
+                    "pretty name": "Scramble Length",
+                    "type": "number",
+                    "value": 20
+                },
+            ];
+        else
+            this.settings = initialSettings;
+        this.generateIndex();
     }
 
     update(name, value) {
-        this.settings[name] = value;
+        let idx = this.nameToIdx[name];
+
+        if (typeof idx == "number") {
+            let setting = this.settings[idx];
+            if (setting.type === "option" && setting.options.indexOf(value) === -1) throw new Error(`Invalid option for setting ${name}`);
+            else if (typeof value !== setting.type) throw new Error(`Invalid type "${typeof value}" for setting ${name}`);
+
+            this.settings[idx].value = value;
+        } else {
+            throw new Error("Can't update setting that does not exist");
+        }
+
         return this;
     }
 
-    get(name) {
-        return this.settings[name];
+    getValue(name) {
+        let idx = this.nameToIdx[name];
+        return this.settings[idx].value;
+    }
+
+    getType(name) {
+        let idx = this.nameToIdx[name];
+        return this.settings[idx].type;
+    }
+
+    getAll() {
+        return this.settings;
+    }
+
+    generateIndex() {
+        this.nameToIdx = {};
+        for (let i = 0; i < this.settings.length; ++i) {
+            this.nameToIdx[this.settings[i].name] = i;
+        }
+    }
+
+    createCopy() {
+        return new Settings(this.settings);
     }
 
     *[Symbol.iterator]() {
-        // // get the properties of the object 
-        // let properties = Object.keys(this);
-        // let count = 0;
-        // // set to true when the loop is done 
-        // let isDone = false;
-
-        // // define the next method, need for iterator 
-        // let next = () => {
-        //     // control on last property reach 
-        //     if (count >= properties.length) {
-        //         isDone = true;
-        //     }
-        //     return { done: isDone, value: this[properties[count++]] };
-        // }
-
-        // // return the next method used to iterate 
-        // return { next };
         for (let key in this) {
-            yield[key, this[key]] // yield [key, value] pair
+            yield [key, this[key]];
         }
     }
 }
