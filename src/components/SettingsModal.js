@@ -31,6 +31,9 @@ export default function SettingsModal({ settings, setSettings }) {
             case "boolean":
                 console.log("Changing var type to bool")
                 value = value === "true" ? true : false;
+                break;
+            default:
+                break;
         }
 
         setSettings(prevSettings => {
@@ -47,8 +50,8 @@ export default function SettingsModal({ settings, setSettings }) {
                 <ModalBody>
 
                     <Form>
-                        {settings.getAll().map((setting) => (
-                            <FormGroup>
+                        {settings.getAll().map((setting, idx) => (
+                            <FormGroup key={`formgroup-${idx}`}>
                                 <Label>{setting["pretty name"]}</Label>
                                 {setting["type"] === "number" &&
                                     <Input onChange={updateSetting} type="number" name={setting["name"]} value={setting["value"]} key={setting["name"]} />

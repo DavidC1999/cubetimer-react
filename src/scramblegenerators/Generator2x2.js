@@ -45,6 +45,8 @@ export default class Generator2x2 {
             case 'R':
                 allowedMoves.push('U', 'D', 'F', 'B')
             break
+            default:
+            break
         }
 
         return allowedMoves

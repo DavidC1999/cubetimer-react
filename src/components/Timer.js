@@ -1,5 +1,5 @@
 import './Timer.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { formatMillis, millisToSeconds } from '../helperFunctions';
 import StateMachine from '../StateMachine';
@@ -65,7 +65,7 @@ export default class Timer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.settings != prevProps.settings) {
+        if(this.props.settings !== prevProps.settings) {
             this.stateMachine.reset();
         }
     }
