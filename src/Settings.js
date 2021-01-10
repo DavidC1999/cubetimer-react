@@ -67,8 +67,6 @@ export default class Settings {
 
         if (typeof idx == "number") {
             let setting = this.settings[idx];
-            // console.log(setting.type);
-            // console.log(setting.options.indexOf(value));
             if (setting.type === "option") {
                 if(setting.options.indexOf(value) === -1) throw new Error(`Invalid option for setting ${name}`);
             } 

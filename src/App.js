@@ -26,12 +26,6 @@ function App() {
 
   const [scramble, setScramble] = useState("");
 
-  useEffect(() => {
-    // settings.set('inspection', true);
-    // settings.set('inspection_time', 15)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <div className="app">
       <CustomNavbar settings={settings} setSettings={setSettings} />
