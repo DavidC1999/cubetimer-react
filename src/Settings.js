@@ -28,6 +28,7 @@ export default class Settings {
                     "type": "option",
                     "value": "3x3",
                     "options": [
+                        "2x2",
                         "3x3"
                     ]
                 },
@@ -66,8 +67,14 @@ export default class Settings {
 
         if (typeof idx == "number") {
             let setting = this.settings[idx];
-            if (setting.type === "option" && setting.options.indexOf(value) === -1) throw new Error(`Invalid option for setting ${name}`);
-            else if (typeof value !== setting.type) throw new Error(`Invalid type "${typeof value}" for setting ${name}`);
+            // console.log(setting.type);
+            // console.log(setting.options.indexOf(value));
+            if (setting.type === "option") {
+                if(setting.options.indexOf(value) === -1) throw new Error(`Invalid option for setting ${name}`);
+            } 
+            else {
+                if (typeof value !== setting.type) throw new Error(`Invalid type "${typeof value}" for setting ${name}`);
+            }
 
             this.settings[idx].value = value;
             localStorage.setItem(`setting_${this.settings[idx].name}`, this.settings[idx].value);

@@ -62,7 +62,7 @@ export default function SettingsModal({ settings, setSettings }) {
                                 }
 
                                 {setting["type"] === "option" &&
-                                    <Input onChange={updateSetting} type="select" name={setting["name"]} key={setting["name"]}>
+                                    <Input onChange={updateSetting} type="select" name={setting["name"]} value={setting["value"]} key={setting["name"]}>
                                         {setting["options"].map((option, idx) => (
                                             <option key={`${setting["name"]}-${idx}`} value={option}>{option}</option>
                                         ))}
