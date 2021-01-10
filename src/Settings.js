@@ -41,6 +41,24 @@ export default class Settings {
         else
             this.settings = initialSettings;
         this.generateIndex();
+        this.setDefaults();
+    }
+
+    
+    setDefaults() {
+        for(let i = 0; i < this.settings.length; ++i) {
+            let fromLocalStorage = localStorage.getItem(`setting_${this.settings[i].name}`);
+            if(fromLocalStorage) {
+                this.settings[i].value = fromLocalStorage;
+            }
+        }
+    }
+
+    generateIndex() {
+        this.nameToIdx = {};
+        for (let i = 0; i < this.settings.length; ++i) {
+            this.nameToIdx[this.settings[i].name] = i;
+        }
     }
 
     update(name, value) {
@@ -52,6 +70,7 @@ export default class Settings {
             else if (typeof value !== setting.type) throw new Error(`Invalid type "${typeof value}" for setting ${name}`);
 
             this.settings[idx].value = value;
+            localStorage.setItem(`setting_${this.settings[idx].name}`, this.settings[idx].value);
         } else {
             throw new Error("Can't update setting that does not exist");
         }
@@ -71,13 +90,6 @@ export default class Settings {
 
     getAll() {
         return this.settings;
-    }
-
-    generateIndex() {
-        this.nameToIdx = {};
-        for (let i = 0; i < this.settings.length; ++i) {
-            this.nameToIdx[this.settings[i].name] = i;
-        }
     }
 
     createCopy() {
