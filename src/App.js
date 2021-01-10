@@ -12,7 +12,7 @@ import {
   Col
 } from 'reactstrap';
 
-import MyTimer from './components/Timer';
+import Timer from './components/Timer';
 import CustomNavbar from './components/CustomNavbar';
 import TimeList from './components/TimeList';
 import StatsList from './components/StatsList';
@@ -38,7 +38,7 @@ function App() {
 
       <Container className="mt-3">
         <Scramble settings={settings} scramble={scramble} setScramble={setScramble}/>
-        <MyTimer settings={settings} setTimeList={setTimeList} scramble={scramble} />
+        <Timer settings={settings} setTimeList={setTimeList} scramble={scramble} />
 
         <Row>
           <Col>
