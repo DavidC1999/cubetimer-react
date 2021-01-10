@@ -40,7 +40,7 @@ export default class Timer extends React.Component {
 
     componentDidMount() {
         this.stateMachine = new StateMachine({
-            intitial: 'idle',
+            initial: 'idle',
             states: {
                 'idle': {
                     next: () => (
@@ -61,8 +61,13 @@ export default class Timer extends React.Component {
                     function: this.initStateSolved
                 }
             }
-
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.settings != prevProps.settings) {
+            this.stateMachine.reset();
+        }
     }
 
     startMainTimer() {
@@ -113,6 +118,8 @@ export default class Timer extends React.Component {
 
     initStateIdle() {
         this.stopTimer();
+        this.isDNF = false;
+        this.isPlusTwo = false;
         let newState = {
             ...this.state,
             hint: "Press space to start"

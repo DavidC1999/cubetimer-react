@@ -20,7 +20,7 @@ export default class StateMachine {
         }
     }
     */
-    constructor({intitial, states}) {
+    constructor({initial, states}) {
         let newStates = {};
         for(const [key, value] of Object.entries(states)) {
             newStates[key] = {
@@ -29,9 +29,10 @@ export default class StateMachine {
                 function: value.function
             };
         }
+        this.defaultState = initial;
 
         this.states = newStates;
-        this.currState = this.states[intitial];
+        this.currState = this.states[this.defaultState];
 
         this.currState.function();
         // console.log(this.currState);
@@ -54,6 +55,11 @@ export default class StateMachine {
 
     getState() {
         return this.currState.name;
+    }
+
+    reset() {
+        this.currState = this.states[this.defaultState];
+        this.currState.function();
     }
 
 }
