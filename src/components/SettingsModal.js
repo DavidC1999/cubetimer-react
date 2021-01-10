@@ -55,7 +55,7 @@ export default function SettingsModal({ settings, setSettings }) {
                                 }
 
                                 {setting["type"] === "boolean" &&
-                                    <Input onChange={updateSetting} type="select" name={setting["name"]} key={setting["name"]}>
+                                    <Input onChange={updateSetting} type="select" name={setting["name"]} value={setting["value"]} key={setting["name"]}>
                                         <option value="true">Yes</option>
                                         <option value="false">No</option>
                                     </Input>
