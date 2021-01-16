@@ -17,6 +17,7 @@ import CustomNavbar from './components/CustomNavbar';
 import TimeList from './components/TimeList';
 import StatsList from './components/StatsList';
 import Scramble from './components/Scramble';
+import ManualTimes from './components/ManualTimes';
 
 function App() {
   const [settings, setSettings] = useState(new Settings())
@@ -26,14 +27,24 @@ function App() {
 
   const [scramble, setScramble] = useState("");
 
+  const selectTimer = () => {
+    if(settings.getValue("manual_enter") === true) {
+      return <ManualTimes setTimeList={setTimeList} scramble={scramble} />;
+    } else {
+      return <Timer settings={settings} setTimeList={setTimeList} scramble={scramble} />;
+    }
+  }
+
   return (
     <div className="app">
       <CustomNavbar settings={settings} setSettings={setSettings} />
 
       <Container className="mt-3">
-        <Scramble settings={settings} scramble={scramble} setScramble={setScramble}/>
-        <Timer settings={settings} setTimeList={setTimeList} scramble={scramble} />
-
+        <Scramble settings={settings} scramble={scramble} setScramble={setScramble} />
+        {/* {settings.getValue("manual_enter")}
+        {!settings.getValue("manual_enter") && <Timer settings={settings} setTimeList={setTimeList} scramble={scramble} />}
+        {settings.getValue("manual_enter") && <ManualTimes setTimeList={setTimeList} scramble={scramble} />} */}
+        {selectTimer()}
         <Row>
           <Col>
             <TimeList timeList={timeList} setTimeList={setTimeList} />

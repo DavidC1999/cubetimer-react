@@ -50,6 +50,12 @@ export default class Settings {
                     "type": "number",
                     "value": 20
                 },
+                {
+                    "name": "manual_enter",
+                    "pretty name": "Manually enter times",
+                    "type": "boolean",
+                    "value": false
+                },
             ];
         else
             this.settings = initialSettings;

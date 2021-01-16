@@ -1,0 +1,10 @@
+.manualTimes {
+    width: 50vw;
+    margin: 20px auto;
+    font-size: 5rem;
+}
+
+.timeInput {
+    width: 30%;
+    text-align: center;
+}
