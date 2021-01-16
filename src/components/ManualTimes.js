@@ -59,10 +59,10 @@ export default function ManualTimes({ setTimeList, scramble }) {
         return millis;
     }
 
-    const addTime = () => {
+    const addTime = (plusTwo, DNF) => {
         setTimeList(prevTimeList => ([
             ...prevTimeList,
-            new Time(getTime(), scramble, false, false)
+            new Time(getTime(), scramble, plusTwo, DNF)
         ]));
     }
 
@@ -74,8 +74,11 @@ export default function ManualTimes({ setTimeList, scramble }) {
 
     const handleKeyUp = event => {
         if (event.key === 'Enter') {
-            addTime();
+            let plusTwo = event.shiftKey;
+            let DNF = event.ctrlKey;
+            addTime(plusTwo, DNF);
             clearFields();
+            minRef.current.focus();
         }
     }
 
