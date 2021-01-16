@@ -28,7 +28,7 @@ function App() {
   const [scramble, setScramble] = useState("");
 
   const selectTimer = () => {
-    if(settings.getValue("manual_enter") === true) {
+    if(manualTimes) {
       return <ManualTimes setTimeList={setTimeList} scramble={scramble} />;
     } else {
       return <Timer settings={settings} setTimeList={setTimeList} scramble={scramble} />;
@@ -41,9 +41,6 @@ function App() {
 
       <Container className="mt-3">
         <Scramble settings={settings} scramble={scramble} setScramble={setScramble} />
-        {/* {settings.getValue("manual_enter")}
-        {!settings.getValue("manual_enter") && <Timer settings={settings} setTimeList={setTimeList} scramble={scramble} />}
-        {settings.getValue("manual_enter") && <ManualTimes setTimeList={setTimeList} scramble={scramble} />} */}
         {selectTimer()}
         <Row>
           <Col>

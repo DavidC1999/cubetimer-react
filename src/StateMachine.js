@@ -38,6 +38,15 @@ export default class StateMachine {
         // console.log(this.currState);
     }
 
+    static getDummyStatemachine() {
+        return new StateMachine('dummy', {
+            'dummy': {
+                'next': 'dummy',
+                'function': ()=>{}
+            }
+        });
+    }
+
     runFunction() {
         this.currState.function();
     }

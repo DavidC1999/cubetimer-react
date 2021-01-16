@@ -63,6 +63,10 @@ export default class Timer extends React.Component {
         });
     }
 
+    componentWillUnmount() {
+        this.stateMachine = StateMachine.getDummyStatemachine();
+    }
+
     componentDidUpdate(prevProps) {
         if(this.props.settings !== prevProps.settings) {
             this.stateMachine.reset();
