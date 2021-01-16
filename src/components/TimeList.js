@@ -7,6 +7,8 @@ import {
     Button
 } from 'reactstrap';
 
+import InspectTimeModal from './InspectTimeModal';
+
 export default function TimeList({ timeList, setTimeList }) {
 
     const [hidden, setHidden] = useState(false);
@@ -44,7 +46,8 @@ export default function TimeList({ timeList, setTimeList }) {
             <ListGroup>
                 {timeList.map((time, idx) => (
                     <ListGroupItem key={idx} className="px-5 time">
-                        <span className="timeText" onClick={() => alert(time.getScramble())}>{time.getString()}</span>
+                        {/* <span className="timeText" onClick={() => alert(time.getScramble())}>{time.getString()}</span> */}
+                        <InspectTimeModal scramble={time.getScramble()} time={time.getString()}/>
                         <span>
                             <Button
                                 color="muted"
