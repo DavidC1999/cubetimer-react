@@ -20,21 +20,13 @@ export default class Timer extends React.Component {
         this.initStateInspection = this.initStateInspection.bind(this);
         this.initStateSolved = this.initStateSolved.bind(this);
         this.initStateSolving = this.initStateSolving.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
 
         this.startTime = 0;
         this.currTime = 0;
         this.timerInterval = null;
         this.isDNF = false;
         this.isPlusTwo = false;
-
-
-
-        document.addEventListener("keyup", (event) => {
-            if (event.key === ' ') {
-                this.stateMachine.nextState();
-                console.log(`now in state ${this.stateMachine.getState()}`);
-            }
-        });
     }
 
     componentDidMount() {
@@ -61,15 +53,25 @@ export default class Timer extends React.Component {
                 }
             }
         });
+
+        document.addEventListener("keyup", this.handleKeyUp);
     }
 
     componentWillUnmount() {
         this.stateMachine = StateMachine.getDummyStatemachine();
+        document.removeEventListener("keyup", this.handleKeyUp);
     }
 
     componentDidUpdate(prevProps) {
         if(this.props.settings !== prevProps.settings) {
             this.stateMachine.reset();
+        }
+    }
+
+    handleKeyUp(event) {
+        if (event.key === ' ') {
+            this.stateMachine.nextState();
+            console.log(`now in state ${this.stateMachine.getState()}`);
         }
     }
 
