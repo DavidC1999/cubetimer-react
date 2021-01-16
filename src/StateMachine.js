@@ -22,6 +22,7 @@ export default class StateMachine {
     */
     constructor({initial, states}) {
         let newStates = {};
+        if(states === undefined) console.trace();
         for(const [key, value] of Object.entries(states)) {
             newStates[key] = {
                 name: key,
@@ -39,10 +40,13 @@ export default class StateMachine {
     }
 
     static getDummyStatemachine() {
-        return new StateMachine('dummy', {
-            'dummy': {
-                'next': 'dummy',
-                'function': ()=>{}
+        return new StateMachine({
+            initial: 'dummy',
+            states: {
+                'dummy': {
+                    next: 'dummy',
+                    function: () => {}
+                }
             }
         });
     }
