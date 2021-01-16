@@ -1,7 +1,18 @@
+class MultComputation {
+    constructor(multBy) {
+        this.multBy = multBy;
+    }
+
+    execute(input) {
+        return input * this.multBy;
+    }
+}
 
 export default class Settings {
     constructor(initialSettings) {
-        this.nameToIdx = {};
+        this.computations = {
+            "multBy1000": new MultComputation(1000)
+        }
         // this.settings = {
         //     "inspection": true,
         //     "inspection_time": 2000,
@@ -18,9 +29,10 @@ export default class Settings {
                 },
                 {
                     "name": "inspection_time",
-                    "pretty name": "Inspection Time (ms)",
+                    "pretty name": "Inspection Time (s)",
                     "type": "number",
-                    "value": 2000
+                    "value": 2,
+                    "computation": "multBy1000" // when getting this value it will be multiplied by 1000
                 },
                 {
                     "name": "scramble_type",
@@ -41,15 +53,16 @@ export default class Settings {
             ];
         else
             this.settings = initialSettings;
+        this.nameToIdx = {};
         this.generateIndex();
         this.setDefaults();
     }
 
-    
+
     setDefaults() {
-        for(let i = 0; i < this.settings.length; ++i) {
+        for (let i = 0; i < this.settings.length; ++i) {
             let fromLocalStorage = localStorage.getItem(`setting_${this.settings[i].name}`);
-            if(fromLocalStorage) {
+            if (fromLocalStorage) {
                 this.settings[i].value = fromLocalStorage;
             }
         }
@@ -68,8 +81,8 @@ export default class Settings {
         if (typeof idx == "number") {
             let setting = this.settings[idx];
             if (setting.type === "option") {
-                if(setting.options.indexOf(value) === -1) throw new Error(`Invalid option for setting ${name}`);
-            } 
+                if (setting.options.indexOf(value) === -1) throw new Error(`Invalid option for setting ${name}`);
+            }
             else {
                 if (typeof value !== setting.type) throw new Error(`Invalid type "${typeof value}" for setting ${name}`);
             }
@@ -85,7 +98,14 @@ export default class Settings {
 
     getValue(name) {
         let idx = this.nameToIdx[name];
-        return this.settings[idx].value;
+
+        let returnVal = this.settings[idx].value;
+        if(this.settings[idx]["computation"]) {
+            let computation = this.settings[idx]["computation"];
+            returnVal = this.computations[computation].execute(returnVal);
+        }
+
+        return returnVal;
     }
 
     getType(name) {

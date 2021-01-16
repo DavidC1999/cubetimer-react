@@ -6,7 +6,6 @@ import StateMachine from '../StateMachine';
 import Time from '../Time';
 
 export default class Timer extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
