@@ -66,9 +66,20 @@ export default class Settings {
         for (let i = 0; i < this.settings.length; ++i) {
             let fromLocalStorage = localStorage.getItem(`setting_${this.settings[i].name}`);
             if (fromLocalStorage) {
-                this.settings[i].value = fromLocalStorage;
+                let [type, value] = fromLocalStorage.split(':');
+                // if(type === "boolean") value = value === 'true';
+                switch (type) {
+                    case "boolean":
+                        value = value === "true";
+                        break;
+                    case "number":
+                        value = parseFloat(value);
+                        break;
+                }
+                this.settings[i].value = value;
             }
         }
+        console.table(this.settings)
     }
 
     generateIndex() {
@@ -91,7 +102,7 @@ export default class Settings {
             }
 
             this.settings[idx].value = value;
-            localStorage.setItem(`setting_${this.settings[idx].name}`, this.settings[idx].value);
+            localStorage.setItem(`setting_${this.settings[idx].name}`, `${this.settings[idx].type}:${this.settings[idx].value}`);
         } else {
             throw new Error("Can't update setting that does not exist");
         }
@@ -103,7 +114,7 @@ export default class Settings {
         let idx = this.nameToIdx[name];
 
         let returnVal = this.settings[idx].value;
-        if(this.settings[idx]["computation"]) {
+        if (this.settings[idx]["computation"]) {
             let computation = this.settings[idx]["computation"];
             returnVal = computation.execute(returnVal);
         }
