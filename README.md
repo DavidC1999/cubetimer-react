@@ -1,7 +1,7 @@
 # Cube timer project to learn react
 
 ## Todo list
-- [ ] manually enter times
+- [x] manually enter times
 - [x] computation on settings (having the inspection time in s but use it as ms under the hood, for example)
 - [x] change scramble check in time list to actual pretty modal
 - [ ] more scramble types
