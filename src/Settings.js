@@ -10,9 +10,6 @@ class MultComputation {
 
 export default class Settings {
     constructor(initialSettings) {
-        this.computations = {
-            "multBy1000": new MultComputation(1000)
-        }
         // this.settings = {
         //     "inspection": true,
         //     "inspection_time": 2000,
@@ -32,7 +29,7 @@ export default class Settings {
                     "pretty name": "Inspection Time (s)",
                     "type": "number",
                     "value": 2,
-                    "computation": "multBy1000" // when getting this value it will be multiplied by 1000
+                    "computation": new MultComputation(1000) // when getting this value it will be multiplied by 1000
                 },
                 {
                     "name": "scramble_type",
@@ -108,7 +105,7 @@ export default class Settings {
         let returnVal = this.settings[idx].value;
         if(this.settings[idx]["computation"]) {
             let computation = this.settings[idx]["computation"];
-            returnVal = this.computations[computation].execute(returnVal);
+            returnVal = computation.execute(returnVal);
         }
 
         return returnVal;
